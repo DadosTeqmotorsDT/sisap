@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <h2>Bem-vindo, {{ user['login'] }}</h2>
+    <div class="summary-cards">
+        <div class="summary-card">
+            <div class="summary-number">{{ assigned|length }}</div>
+            <div class="summary-label">Suas Propostas</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-number">{{ public|length }}</div>
+            <div class="summary-label">Propostas Públicas</div>
+        </div>
+    </div>
+    {% if message %}
+        <div class="message-success">{{ message }}</div>
+    {% endif %}
+    <h3>Suas Propostas</h3>
+    <table>
+        <tr>
+            <th>Nº Proposta</th>
+            <th>Nome do Cliente</th>
+            <th>CPF do Cliente</th>
+            <th>Modelo da Moto</th>
+            <th>Valor Liberado</th>
+            <th>Status</th>
+            <th>Data de Aprovação</th>
+        </tr>
+        {% for proposal in assigned %}
+        <tr>
+            <td>{{ proposal['Proposta_Numero'] }}</td>
+            <td>{{ proposal['Cliente_nome'] }}</td>
+            <td>{{ proposal['Cliente_cpf'] }}</td>
+            <td>{{ proposal['Veiculo_descricao'] }}</td>
+            <td>{{ proposal['Valor_liberado'] }}</td>
+            <td>{{ proposal['Status'] }}</td>
+            <td>{{ proposal['Proposta_Data'] }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7">Nenhuma proposta atribuída.</td></tr>
+        {% endfor %}
+    </table>
+    <h3>Propostas Públicas</h3>
+    <form method="get" action="{{ url_for('dashboard') }}" style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+        <label for="public_date_start" style="margin: 0;">De:</label>
+        <input type="date" id="public_date_start" name="public_date_start" value="{{ request.args.get('public_date_start', '') }}">
+        <label for="public_date_end" style="margin: 0;">Até:</label>
+        <input type="date" id="public_date_end" name="public_date_end" value="{{ request.args.get('public_date_end', '') }}">
+        <button type="submit" style="background: #ca1111; color: #fff; border: none; padding: 0.5rem 1.2rem; border-radius: 4px; font-size: 1rem; cursor: pointer; margin: 0.5rem 0; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 6px rgba(37,99,235,0.08); display: flex; align-items: center; gap: 0.5rem;">Filtrar</button>
+    </form>
+    <table>
+        <tr>
+            <th>Nº Proposta</th>
+            <th>Nome do Cliente</th>
+            <th>CPF do Cliente</th>
+            <th>Modelo da Moto</th>
+            <th>Valor Liberado</th>
+            <th>Status</th>
+            <th>Data de Aprovação</th>
+        </tr>
+        {% for proposal in public %}
+        <tr>
+            <td>{{ proposal['Proposta_Numero'] }}</td>
+            <td>{{ proposal['Cliente_nome'] }}</td>
+            <td>{{ proposal['Cliente_cpf'] }}</td>
+            <td>{{ proposal['Veiculo_descricao'] }}</td>
+            <td>{{ proposal['Valor_liberado'] }}</td>
+            <td>{{ proposal['Status'] }}</td>
+            <td>{{ proposal['Proposta_Data'] }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7">Nenhuma proposta pública.</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %} 

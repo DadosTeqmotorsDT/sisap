@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sistema de Gerenciamento de Propostas{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-bar">
+            <div class="header-left">
+                <img src="{{ url_for('static', filename='logo2.png') }}" alt="Logo" class="logo-img">
+            </div>
+            <nav class="header-center">
+                <a href="{{ url_for('dashboard') }}">Gerenciamento de Propostas</a>
+            </nav>
+            <div class="header-right">
+                <a href="{{ url_for('logout') }}" class="logout-btn">Sair</a>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        &copy; 2025 Shineray - Sistema de Gerenciamento de Propostas. Todos os direitos reservados.
+    </footer>
+</body>
+</html> 

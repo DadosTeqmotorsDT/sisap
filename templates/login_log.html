@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Login Log{% endblock %}
+{% block content %}
+    <h2>Login Log</h2>
+    <table>
+        <tr>
+            <th>login</th>
+            <th>login_date</th>
+        </tr>
+        {% for entry in log_entries %}
+        <tr>
+            <td>{{ entry['login'] }}</td>
+            <td>{{ entry['login_date'] }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="2">No log entries.</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %} 
