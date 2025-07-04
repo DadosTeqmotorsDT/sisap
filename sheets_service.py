@@ -52,4 +52,15 @@ def log_login(login):
 
 def get_login_log():
     log_ws = sh.worksheet('Login Log')
-    return log_ws.get_all_records() 
+    return log_ws.get_all_records()
+
+def get_unique_public_origem_empresa():
+    approvals_ws = sh.worksheet('Approvals')
+    proposals = approvals_ws.get_all_records()
+    unique = set()
+    for p in proposals:
+        if p.get('Status') == 'Public':
+            val = str(p.get('Origem_Detalhe', '')).strip()
+            if val:
+                unique.add(val)
+    return sorted(unique) 
